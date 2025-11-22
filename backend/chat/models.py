@@ -17,7 +17,7 @@ class Conversa(models.Model):
         return f"Conversa: {self.id} - Título: {self.titulo}"
     
 class Mensagem(models.Model):
-    conversa = models.ForeignKey(Conversa, on_delete=models.CASCADE, related_name="mensagens")
+    conversa = models.ForeignKey(Conversa, on_delete=models.CASCADE, related_name="mensagens") #rn - pegar todas as msgs da conversa
     enviado_por = models.ForeignKey(User, on_delete=models.CASCADE)
     conteudo = models.TextField(blank=True)
     imagem = models.ImageField(upload_to="chat/imagens/", blank=True, null=True)
