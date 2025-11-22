@@ -14,18 +14,19 @@ class MensagemSerializer(serializers.ModelSerializer):
     enviado_por = UsuarioSerializer(read_only=True)
     conversa = serializers.PrimaryKeyRelatedField(queryset=Conversa.objects.all())
     imagem_url = serializers.SerializerMethodField()
+    tipo = serializers.SerializerMethodField()
     
     class Meta:
         model = Mensagem
-        fields = ['id', 'conversa', 'enviado_por', 'conteudo', 'imagem', 'imagem_url', 'data_envio','bot']
-        read_only_fields = ["id","enviado_por", "data_envio", "bot"]
+        fields = ['id', 'conversa', 'enviado_por', 'conteudo', 'imagem', 'imagem_url', 'data_envio','bot', 'tipo']
+        read_only_fields = ["id","enviado_por", "data_envio", "bot", "tipo"]
 
     def create(self, validated_data):
         request = self.context.get("request")
         user = request.user
         conversa = validated_data["conversa"]
 
-        if conversa.usuario != user:
+        if conversa.usuario != user and not user.is_staff:
             raise PermissionDenied("Você não tem acesso a esta conversa.")
         
         mensagem = Mensagem.objects.create(
@@ -34,6 +35,7 @@ class MensagemSerializer(serializers.ModelSerializer):
             **validated_data
         )
 
+        # msg automatica
         total = conversa.mensagens.count()
         if total == 1:
             Mensagem.objects.create(
@@ -43,6 +45,15 @@ class MensagemSerializer(serializers.ModelSerializer):
                 bot=True
             )
         return mensagem
+    
+    def get_tipo(self, obj):
+        user = self.context['request'].user
+        if obj.bot:
+            return "bot"
+        elif obj.enviado_por == user:
+            return "meu_usuario"
+        else:
+            return "outro_usuario"
 
     def get_imagem_url(self, obj):
         # transformar a url fornecida pelo DRF como um link pronto para o front consumir

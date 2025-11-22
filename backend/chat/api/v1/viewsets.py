@@ -22,7 +22,10 @@ class MensagemViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Mensagem.objects.filter(conversa__usuario=self.request.user).order_by("data_envio")
+        user = self.request.user
+        if user.is_staff:
+            return Mensagem.objects.all().order_by("data_envio")
+        return Mensagem.objects.filter(conversa__usuario=user).order_by("data_envio")
     
     def perform_create(self, serializer):
         serializer.save()
