@@ -24,7 +24,7 @@ function Chat() {
     };
 
     fetchConversations();
-  }, []); // O array vazio faz com que isso rode apenas uma vez, quando o componente é montado
+  }, []); // o array vazio faz com que isso rode apenas uma vez, quando o componente é montado
 
   return (
     <div className="chat-container">
