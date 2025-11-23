@@ -29,18 +29,18 @@ Armazena cada mensagem enviada no chat:
 
 ### 2. Permissão baseada no usuário
 
-Defini as permissõ
+Defini as permissõoes
 
 - Usuário comum: só pode ver e enviar mensagens das suas próprias conversas.
 - Admin (is_staff=True): vê e responde TODAS as conversas.
 
 ---
 
-### 3. SimplesJWT para autenticaçã
+### 3. SimplesJWT para autenticação
 
 Usado autentição para buscar no banco as conversas e mensagens específicas de cada usuário.
 
-### 4. Serializers com campo tipo para o f
+### 4. Serializers com campo tipo para o frontend
 
 Para facilitar um pouco no backend foi definido a assinatura/tipo da mensagem para destinguir a diferença de cada mensagem:
 
@@ -59,4 +59,6 @@ Uma delas foi a organização de diretórios e rotas por versão, para não acab
 
 - Uma melhoria a se colocar realmente seria a implementação de um websocket, não sabia muito como funciona mas pesquisei sobre, se chama django channels, uma boa melhoria seria aplicar futuramente nesse projeto para que ele se torne um chat realtime
 - Com a melhoria passada poderia ser implementada mais coisas como notificações de mensagens novas, mensagens visualizadas, e por ai vai.
-- Aberto a ouvir m---
+- Aberto a ouvir mais melhorias
+
+---
