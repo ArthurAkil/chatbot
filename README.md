@@ -2,7 +2,7 @@
 
 Antes de tudo é necessário informar que esse sistema não utiliza websockets, não oferecendo um sistema de chat REAL TIME aplicado em sistemas atuais e sim uma representação com meu conhecimento em como ele funciona.
 
-#### Esse README está com informações do backend e frontend e como iniciar o Projeto na sua maquina e explicações sobre as decisões feitas sobre o projeto.
+#### Esse README está com informações do backend e frontend e como iniciar o Projeto na sua maquina. Explicações sobre as decisões feitas sobre o projeto estão no readme de cada diretório.
 
 ## Backend (Django + DRF + JWT)
 
@@ -71,6 +71,14 @@ Para garantir que estudo está setado, realize:
 ```
 python manage.py makemigrations
 python manage.py migrate
+```
+
+### 👤 Crie os usuários
+
+Existe um script próprio para criar dois usuários. Um usuário teste e um admin
+
+```
+python manage.py shell < utils/cria_perfis.py
 ```
 
 ### ▶️ Rodar Servidor
