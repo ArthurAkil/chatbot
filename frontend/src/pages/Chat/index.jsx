@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../contexts/useAuth";
 import api from "../../services/api";
 import "./styles.css";
@@ -9,7 +9,18 @@ function Chat() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeConversation, setActiveConversation] = useState(null);
-  const [newMessage, setNewMessage] = useState(""); // Estado para a nova mensagem
+  const [newMessage, setNewMessage] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false); // visibilidade do modal
+  const [newConversationTitle, setNewConversationTitle] = useState("");
+  const messagesEndRef = useRef(null); // fazer os scroll ir automaticamente para baixo (msgs atuais)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [activeConversation?.mensagens]); // Sempre que há uma mensagem nova roda lá pra baxio
 
   useEffect(() => {
     // Função para buscar as conversas na API
@@ -28,6 +39,31 @@ function Chat() {
     fetchConversations();
   }, []); // o array vazio faz com que isso rode apenas uma vez, quando o componente é montado
 
+  const handleCreateConversation = async (e) => {
+    e.preventDefault();
+    if (!newConversationTitle.trim()) return;
+
+    try {
+      // Envia o título para a API criar a conversa
+      const response = await api.post("/api/conversas/", {
+        titulo: newConversationTitle,
+      });
+      const newConversation = response.data;
+
+      // Adiciona a nova conversa no topo da lista e a define como ativa.
+      setConversations([newConversation, ...conversations]);
+      setActiveConversation(newConversation);
+
+      setIsModalOpen(false);
+      setNewConversationTitle("");
+    } catch (err) {
+      setError(
+        "Não foi possível criar uma nova conversa. Tente novamente mais tarde."
+      );
+      console.error(err);
+    }
+  };
+
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!newMessage.trim() || !activeConversation) return;
@@ -38,7 +74,7 @@ function Chat() {
     };
 
     try {
-      // Envia a msg para a API
+      // Envia a nova mensagem para a API
       const response = await api.post("/api/mensagens/", messageData);
       const sentMessage = response.data;
 
@@ -53,7 +89,7 @@ function Chat() {
       setActiveConversation(
         updatedConversations.find((c) => c.id === activeConversation.id)
       );
-      setNewMessage(""); // Limpa o input
+      setNewMessage(""); // Limpa input
     } catch (err) {
       console.error("Erro ao enviar mensagem:", err);
     }
@@ -63,7 +99,16 @@ function Chat() {
     <div className="chat-container">
       <aside className="sidebar">
         <header className="sidebar-header">
-          <h2>Conversas</h2>
+          <div className="sidebar-title-container">
+            <h2>Conversas</h2>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="new-convo-button"
+              title="Nova Conversa"
+            >
+              +
+            </button>
+          </div>
           <button onClick={logout} className="logout-button">
             Sair
           </button>
@@ -101,6 +146,8 @@ function Chat() {
                   </div>
                 </div>
               ))}
+              {/* usado um referencia para mostrar onde é "em baixo" */}
+              <div ref={messagesEndRef} />
             </div>
             <form className="chat-input-form" onSubmit={handleSendMessage}>
               <input
@@ -118,6 +165,30 @@ function Chat() {
           <h1>Selecione uma conversa para começar</h1>
         )}
       </main>
+
+      {/* Modal para criar nova conversa */}
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Criar Nova Conversa</h2>
+            <form onSubmit={handleCreateConversation}>
+              <input
+                type="text"
+                value={newConversationTitle}
+                onChange={(e) => setNewConversationTitle(e.target.value)}
+                placeholder="Digite o título da conversa..."
+                autoFocus
+              />
+              <div className="modal-actions">
+                <button type="button" onClick={() => setIsModalOpen(false)}>
+                  Cancelar
+                </button>
+                <button type="submit">Criar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
