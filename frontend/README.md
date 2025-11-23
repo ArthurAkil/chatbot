@@ -1,16 +1,42 @@
-# React + Vite
+## Decisões Técnicas - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este documento detalha as principais decisões de arquitetura e tecnologia tomadas durante o desenvolvimento da interface do chatbot.
 
-Currently, two official plugins are available:
+### 1. Gerenciamento de Estado com Hooks
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Optei por usar os Hooks nativos do React.
 
-## React Compiler
+- `useState`: É o principal hook utilizado para gerenciar o estado local dos componentes, como a lista de conversas(conversations), a conversa ativa (activeConversation), o conteúdo de novas mensagens(newMessage), e o estado de carregamento(loading) e erros(error).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `useEffect`: usei para:
 
-## Expanding the ESLint configuration
+  1.  Buscar os dados conversas da API.
+  2.  Acionar a rolagem automática da tela sempre que uma nova mensagem.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- `useRef`: Criar um ponto de referência direta do final da página, serve para ajudar diretamente a rolagem automática.
+
+---
+
+### 2. Autenticação e Context API
+
+- `AuthContext`: Controlar as informações do usuário, se está logado ou não, e servir para os componentes que precisem saber dessa info.
+
+- `useAuth` (Hook Customizado): Achei essa estrátegia em um fórum como uma forma mais limpa para o acesso ao contexto.
+
+---
+
+### 3. Comunicação com a API e Experiência do Usuário
+
+- Axios: A biblioteca `axios` foi escolhida para fazer as requisições HTTP para o backend Django. Uma instância do axios foi configurada para incluir automaticamente a URL base da API e o token de autenticação JWT nos cabeçalhos, centralizando e simplificando as chamadas em toda a aplicação.
+
+---
+
+### 4. Melhorias Futuras
+
+- Real-Time com WebSockets
+
+- Paginação ou "Scroll Infinito"
+
+- Testes Unitários
+
+---
