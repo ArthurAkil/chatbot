@@ -8,7 +8,7 @@
 
 .sidebar {
   width: 300px;
-  background-color: #ffffff;
+  background-color: #eeeeee;
   border-right: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
@@ -74,27 +74,26 @@
 .conversation-item {
   padding: 1rem 1.5rem;
   cursor: pointer;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #acabab;
   font-size: 1rem;
   color: #444;
 }
 
 .conversation-item:hover {
-  background-color: #f5f5f5;
+  background-color: #b9dffd;
 }
 
 .conversation-item.active {
-  background-color: #e9f5ff;
+  background-color: #2899f5;
   font-weight: bold;
-  color: #007bff;
+  color: #fcfcfc;
 }
 
 /* chat */
 .chat-main {
   flex-grow: 1;
   display: flex;
-  flex-direction: column; /* Mantém a direção da coluna */
-  /* Removemos a centralização para que o conteúdo comece no topo */
+  flex-direction: column;
 }
 
 .chat-main h1 {
@@ -115,7 +114,8 @@
   padding: 1rem 2rem;
   overflow-y: auto;
   display: flex;
-  flex-direction: column; /* Não precisamos organizer reverse já vem certin do banco */
+  flex-direction: column;
+  background-color: #9ecff7; /* Não precisamos organizer reverse já vem certin do banco */
 }
 
 .message-item {
@@ -150,6 +150,7 @@
 }
 .message-item.meu_usuario .message-content {
   background-color: #dcf8c6;
+  border: 2px solid #cccccc;
 }
 
 /* Mensagem do bot ou outro usuário (esquerda) */
@@ -160,14 +161,14 @@
 .message-item.outro_usuario .message-content,
 .message-item.bot .message-content {
   background-color: #ffffff;
-  border: 1px solid #eee;
+  border: 2px solid #cccccc;
 }
 
 /* --- Formulário de Input de Mensagem --- */
 .chat-input-form {
   display: flex;
   padding: 1rem;
-  background-color: #f0f2f5;
+  background-color: #eeeeee;
   border-top: 1px solid #ddd;
 }
 
