@@ -78,8 +78,19 @@ python manage.py migrate
 Existe um script próprio para criar dois usuários. Um usuário teste e um admin
 
 ```
-python manage.py shell < utils/cria_perfis.py
+python manage.py shell
+exec(open("utils/cria_perfis.py").read())
 ```
+
+Agora existe dois perfis no banco:
+
+```
+usuario 1: user=UsuarioTeste, password=userpassword123
+
+superuser: user=admin, password=admin
+```
+
+#### Obs.: Caso não funciona crie o superuser utilizando "python manage.py createsuperuser" e crie um usuário normal no http://127.0.0.1:8000/admin
 
 ### ▶️ Rodar Servidor
 
