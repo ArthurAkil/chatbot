@@ -10,7 +10,12 @@ class ConversaViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Conversa.objects.filter(usuario=self.request.user)
+        user = self.request.user
+
+        if user.is_staff:
+            return Conversa.objects.all().order_by("-criado_em")
+        
+        return Conversa.objects.filter(usuario=user).order_by("-criada_em")
         # quero retornar as conversas do usuário logado
 
     def perform_create(self, serializer):
@@ -23,9 +28,10 @@ class MensagemViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
+
         if user.is_staff:
-            return Mensagem.objects.all().order_by("data_envio")
-        return Mensagem.objects.filter(conversa__usuario=user).order_by("data_envio")
+            return Mensagem.objects.all().order_by("-data_envio")
+        return Mensagem.objects.filter(conversa__usuario=user).order_by("-data_envio")
     
     def perform_create(self, serializer):
         serializer.save()
