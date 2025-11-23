@@ -13,7 +13,7 @@ class ConversaViewSet(viewsets.ModelViewSet):
         user = self.request.user
 
         if user.is_staff:
-            return Conversa.objects.all().order_by("-criado_em")
+            return Conversa.objects.all().order_by("-criada_em")
         
         return Conversa.objects.filter(usuario=user).order_by("-criada_em")
         # quero retornar as conversas do usuário logado
