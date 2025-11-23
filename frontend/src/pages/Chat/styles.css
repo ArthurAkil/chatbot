@@ -70,9 +70,8 @@
 .chat-main {
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; /* Mantém a direção da coluna */
+  /* Removemos a centralização para que o conteúdo comece no topo */
 }
 
 .chat-main h1 {
@@ -85,4 +84,95 @@
   padding: 1rem;
   color: #dc3545;
   text-align: center;
+}
+
+/* --- Lista de Mensagens --- */
+.messages-list {
+  flex-grow: 1;
+  padding: 1rem 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column; /* Não precisamos organizer reverse já vem certin do banco */
+}
+
+.message-item {
+  display: flex;
+  margin-bottom: 1rem;
+  max-width: 70%;
+}
+
+.message-content {
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  color: #333;
+  position: relative;
+}
+
+.message-content p {
+  margin: 0;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  color: #888;
+  display: block;
+  margin-top: 0.25rem;
+  text-align: right;
+}
+
+/* Mensagem do usuário logado (direita) */
+.message-item.meu_usuario {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+.message-item.meu_usuario .message-content {
+  background-color: #dcf8c6;
+}
+
+/* Mensagem do bot ou outro usuário (esquerda) */
+.message-item.outro_usuario,
+.message-item.bot {
+  align-self: flex-start;
+}
+.message-item.outro_usuario .message-content,
+.message-item.bot .message-content {
+  background-color: #ffffff;
+  border: 1px solid #eee;
+}
+
+/* --- Formulário de Input de Mensagem --- */
+.chat-input-form {
+  display: flex;
+  padding: 1rem;
+  background-color: #f0f2f5;
+  border-top: 1px solid #ddd;
+}
+
+.chat-input-form input {
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  border-radius: 18px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.chat-input-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 18px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.chat-input-form button:hover {
+  background-color: #0056b3;
+}
+
+.chat-input-form button:disabled {
+  background-color: #a0c7ff;
+  cursor: not-allowed;
 }
