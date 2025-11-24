@@ -46,8 +46,9 @@ cd backend
 
 ```
 python -m venv venv
-source venv/bin/activate   # Linux/Mac
-. venv/Scripts/activate    # Windows (VSCODE)
+source venv/bin/activate      # Linux/Mac
+. venv/Scripts/activate       # Windows (VSCODE)
+.venv\Scripts\activate.bat    # Windows (CMD)
 ```
 
 ### 3. Instalar Dependências
