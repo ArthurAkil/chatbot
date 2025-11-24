@@ -83,7 +83,7 @@ Existe um script próprio para criar dois usuários. Um usuário teste e um admi
 ```
 python manage.py shell
 
-exec(open("utils/cria_perfis.py").read())
+exec(open("utils/criar_perfis.py").read())
 ```
 
 Agora existe dois perfis no banco:
