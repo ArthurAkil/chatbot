@@ -1,6 +1,6 @@
 # Chatbot - Sistema CRUD de atendimento simulado.
 
-Antes de tudo é necessário informar que esse sistema não utiliza websockets, não oferecendo um sistema de chat REAL TIME aplicado em sistemas atuais e sim uma representação com meu conhecimento em como ele funciona.
+Antes de tudo é necessário informar que esse sistema não utiliza websockets, não oferecendo um sistema de chat REAL TIME aplicado em sistemas atuais e sim uma representação com meu conhecimento em como ele funciona. A atualização de mensagens deve ser feita recarregando a página ou apertando F5.
 
 #### Esse README está com informações do backend e frontend e como iniciar o Projeto na sua maquina. Explicações sobre as decisões feitas sobre o projeto estão no readme de cada diretório.
 
@@ -67,7 +67,7 @@ SECRET_KEY="ME MUDE"
 
 ### 🗄️ Banco de Dados
 
-Para garantir que estudo está setado, realize:
+Para garantir que tudo está setado, realize:
 
 ```
 python manage.py makemigrations
@@ -78,7 +78,7 @@ python manage.py migrate
 
 Existe um script próprio para criar dois usuários. Um usuário teste e um admin
 
-#### Esse comenado funciona pelo terminal do vscode.
+#### Esse comando funciona pelo terminal do vscode.
 
 ```
 python manage.py shell
@@ -94,7 +94,7 @@ usuario 1: user=UsuarioTeste, password=userpassword123
 superuser: user=admin, password=admin
 ```
 
-#### Obs.: Caso não funciona crie o superuser utilizando "python manage.py createsuperuser" e crie um usuário normal no http://127.0.0.1:8000/admin
+#### Obs.: Caso não funcione crie o superuser utilizando "python manage.py createsuperuser" e crie um usuário normal no http://127.0.0.1:8000/admin
 
 ### ▶️ Rodar Servidor
 
