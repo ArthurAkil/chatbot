@@ -78,8 +78,11 @@ python manage.py migrate
 
 Existe um script próprio para criar dois usuários. Um usuário teste e um admin
 
+#### Esse comenado funciona pelo terminal do vscode.
+
 ```
 python manage.py shell
+
 exec(open("utils/cria_perfis.py").read())
 ```
 

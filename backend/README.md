@@ -48,7 +48,7 @@ Para facilitar um pouco no backend foi definido a assinatura/tipo da mensagem pa
 - `"outro_usuario"`
 - `"bot"`
 
-## Alguns campos foram colocados como read_only apenas para que não sejam alterados pois quero a proteção deles e não interferê
+## Alguns campos foram colocados como read_only apenas para que não sejam alterados pois quero a proteção deles e não interferência
 
 ### 5. Organização de pastas:
 
